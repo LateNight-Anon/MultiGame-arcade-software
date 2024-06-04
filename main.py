@@ -53,10 +53,8 @@ def createLoginScreen() -> None:
         try:
             with open(fileName, 'r') as file:
                 if fileProps(fileName).st_size: 
-                    for item in next(reader(file)):
-                        print(decryptNumber(item))
                     plot([decryptNumber(item) for item in next(reader(file))])
-                else: plot([0,1,69])
+                else: print("fileSize = " + str(fileProps(fileName).st_size))
                 [title(graphTitle), ylabel("value"), xlabel("iteration"), show()]
         except FileNotFoundError: fatalErrorHandle("002")
         except ValueError: fatalErrorHandle("003")
@@ -84,9 +82,9 @@ def createLoginScreen() -> None:
             [passwordLabel.destroy(), passwordEntry.destroy(), submitButton.destroy()]
             Button(loginScreen, text = "graph scores", font = ("Arial", 15), bg = "light green", relief = "solid", borderwidth = 3, command = callGraphDataForAllFiles).pack(pady = 15)
             Button(loginScreen, text = "clear all files", font = ("Arial", 15), bg = "red", relief = "solid", borderwidth = 3, command = clearAllFile).pack(pady = 20)
-            Button(loginScreen, text = "clear math file", font = ("Arial", 15), bg = "orange", relief = "solid", borderwidth = 3, command = clearFile("mathGameResults.csv")).pack(pady = 20)
-            Button(loginScreen, text = "clear click file", font = ("Arial", 15), bg = "orange", relief = "solid", borderwidth = 3, command = clearFile("clickGameResults.csv")).pack(pady = 20)
-            Button(loginScreen, text = "clear reaction file", font = ("Arial", 15), bg = "orange", relief = "solid", borderwidth = 3, command = clearFile("reactionGameResults.csv")).pack(pady = 20)
+            Button(loginScreen, text = "clear math file", font = ("Arial", 15), bg = "orange", relief = "solid", borderwidth = 3, command = lambda: clearFile("mathGameResults.csv")).pack(pady = 20)
+            Button(loginScreen, text = "clear click file", font = ("Arial", 15), bg = "orange", relief = "solid", borderwidth = 3, command = lambda: clearFile("clickGameResults.csv")).pack(pady = 20)
+            Button(loginScreen, text = "clear reaction file", font = ("Arial", 15), bg = "orange", relief = "solid", borderwidth = 3, command = lambda: clearFile("reactionGameResults.csv")).pack(pady = 20)
 
     loginScreen = Tk()
     loginScreen.title("login as an admin")
@@ -318,7 +316,7 @@ def timer() -> None:
         global count
         with open("timerSave.csv", 'r') as file:
             try:
-                count = int(numberDecrypt(file.readline()))
+                count = int(file.readline())
                 countLabel.configure(text = count)
             except Exception:
                 thread(target = createErrorMessage).start()
@@ -326,8 +324,8 @@ def timer() -> None:
 
     def save() -> None: 
         with open("timerSave.csv", 'w') as file: 
-            if fileProps("timerSave.csv").st_size: file.write(", " + numberEncryption(str(count)))
-            else: file.write(numberEncryption(str(count)))
+            if fileProps("timerSave.csv").st_size: file.write(", " + str(count))
+            else: file.write(str(count))
 
     isAppOpen: bool = True
     count: int = 0
