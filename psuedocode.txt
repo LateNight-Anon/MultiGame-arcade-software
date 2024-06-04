@@ -1,0 +1,36 @@
+FUNCTION mathgame
+{ this function creates the UI and houses the logic for the math game }
+{ arguments: this function takes no arguments }
+{ outputs: this function creates no ouputs }
+BEGIN
+	create difficulty selection UI
+	IF player submits a difficulty THEN
+		difficulty <- players submitted difficulty
+		time <- 20
+		points <- 0
+		every second time is SUBTRACTED by 1
+		show question of players difficulty
+		DO
+			IF player submits correct answer THEN
+				points <- points + 1
+				CONTINUE
+			IF player submits wrong answer THEN
+				DISPLAY wrong answer message
+				WAIT 1 second
+				DELETE wrong answer message
+				CONTINUE
+		WHILE time DOES NOT = 0
+		show players score
+		write encrypted score to file
+END
+
+PROGRAM 3challengearcade
+BEGIN
+	create main menu
+	IF math button is pressed THEN
+		RUN mathgme FUNCTION
+	IF reaction button is pressed THEN
+		RUN reaction FUNCTION
+	IF click button is pressed THEN
+		RUN click FUNCTION
+END
