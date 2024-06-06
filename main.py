@@ -37,8 +37,8 @@ def decryptNumber(number: str) -> float:
 def addToFile(fileName: str, value: int) -> None:
     try:
         with open(fileName, 'a') as file:
-            if fileProps(fileName).st_size: file.write(", " + encryptNumber(value))
-            else: file.write(encryptNumber(value))
+            if fileProps(fileName).st_size: file.write(", " + encryptNumber(round(value)))
+            else: file.write(encryptNumber(round(value)))
     except FileNotFoundError: fatalErrorHandle("001")
 
 def createErrorMessage(window: Tk, txt: str, X: int, Y: int, fontSize: int) -> None:
@@ -208,7 +208,7 @@ def clickReaction() -> None:
                 gameIsRunning = False
                 titleLabel.configure(text = "well done!", bg = "white")
                 clickApp.configure(bg = "white")
-                winButton.configure(text = "holy shit!", bg = "light grey")
+                winButton.configure(text = "wow!", bg = "light grey")
                 winButton.place(x = 110, y = 205)
                 addToFile("reactionGameResults.csv", displayedTime)
 
