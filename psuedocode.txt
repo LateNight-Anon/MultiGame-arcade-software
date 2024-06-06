@@ -1,3 +1,70 @@
+FUNCTION admin
+{ this function creates and houses the logic for the admin screen }
+{ arguments: this function takes no arguments }
+{ outputs: this function creates no ouputs }
+BEGIN
+	create UI
+	IF user selects graph THEN
+		DISPLAY graphs FOR all files
+	IF user selects clear files THEN
+		WIPE all files
+	IF user selects clear math file THEN
+		WIPE math file
+	IF user selects clear click file THEN
+		WIPE click file
+	IF user selects clear reaction file THEN
+		WIPE reaction file
+END
+
+FUNCTION login
+{ this function creates and houses the logic for the login screen }
+{ arguments: this function takes no arguments }
+{ outputs: this function creates no ouputs }
+BEGIN
+	create UI
+	IF user inputs password THEN
+		HASH user input
+		IF user input is in passwords THEN
+			allow user in
+			GO TO admin
+END
+
+FUNCTION clicks
+{ this function creates and houses the logic for the click game screen }
+{ arguments: this function takes no arguments }
+{ outputs: this function creates no ouputs }
+BEGIN
+	create UI
+	IF user presses start THEN
+		timer <- 20
+		clicks <- 0
+		every second time is SUBTRACTED by 1
+		create main UI
+		DO
+			IF player presses button THEN
+				increase clicks by 1
+		WHILE time does not = 0
+		DISPLAY clicks divided by 20
+END
+
+
+FUNCTION reaction
+{ this function creates and houses the logic for the click game screen }
+{ arguments: this function takes no arguments }
+{ outputs: this function creates no ouputs }
+BEGIN
+	create intro UI
+	IF player presses start THEN
+		create main UI
+		wait a random number of seconds
+		time <- 0
+		every millisecond time increases by 0.01
+		switch colours
+		IF player presses button THEN
+			pause game
+			change UI
+END		
+
 FUNCTION mathgame
 { this function creates the UI and houses the logic for the math game }
 { arguments: this function takes no arguments }
